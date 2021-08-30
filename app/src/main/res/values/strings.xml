@@ -5,4 +5,9 @@
     <string name="login_autofill_password">Password</string>
     <string name="login_button">Login</string>
     <!--LoginActivity-->
+
+
+    <string name="hello_blank_fragment">Character Fragment</string>
+    <string name="settings_fragment_text">Settings fragment</string>
+    <string name="phrase_fragment_text">Phrase fragment</string>
 </resources>
