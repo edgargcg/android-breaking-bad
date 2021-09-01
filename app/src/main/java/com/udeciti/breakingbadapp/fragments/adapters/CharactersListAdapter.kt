@@ -24,7 +24,6 @@ class CharactersListAdapter(private val characters:  List<Character>) :  Recycle
 
             binding.name.text = character.name
             binding.nickname.text = character.nickname
-            binding.profileImage.setImageURI(Uri.parse(character.img))
             binding.status.setImageResource(statusImage)
             Glide
                 .with(binding.root)

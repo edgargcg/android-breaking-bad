@@ -1,18 +1,21 @@
 package com.udeciti.breakingbadapp.activities.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.udeciti.breakingbadapp.R
+import com.udeciti.breakingbadapp.activities.character_profile.CharacterProfileActivity
 import com.udeciti.breakingbadapp.databinding.ActivityMainBinding
 import com.udeciti.breakingbadapp.fragments.CharactersFragment
 import com.udeciti.breakingbadapp.fragments.PhraseFragment
 import com.udeciti.breakingbadapp.fragments.SettingsFragment
 import com.udeciti.breakingbadapp.fragments.adapters.ViewPagerAdapter
+import com.udeciti.breakingbadapp.models.Character
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CharactersFragment.CharacterSelectListener {
     companion object{
         const val EMAIL_KEY = "email"
     }
@@ -40,5 +43,13 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
 
+    }
+
+    override fun onCharacterSelected(character: Character) {
+        val intent: Intent = Intent(this, CharacterProfileActivity::class.java).apply {
+            putExtra(CharacterProfileActivity.CHARACTER_KEY, character)
+        }
+
+        startActivity(intent)
     }
 }

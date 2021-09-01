@@ -1,5 +1,6 @@
 package com.udeciti.breakingbadapp.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,14 +15,22 @@ import com.udeciti.breakingbadapp.databinding.FragmentCharactersBinding
 import com.udeciti.breakingbadapp.fragments.adapters.CharactersListAdapter
 import com.udeciti.breakingbadapp.models.Character
 import com.udeciti.breakingbadapp.viewModels.CharacterViewModel
+import java.lang.ClassCastException
 
 class CharactersFragment : Fragment() {
-    public interface CharacterSelected{
-
+    public interface CharacterSelectListener{
+        fun onCharacterSelected(character: Character)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var characterSelectListener: CharacterSelectListener
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        characterSelectListener = try {
+            context as CharacterSelectListener
+        }catch (e: ClassCastException){
+            throw ClassCastException("$context must implement CharacterSelectListener")
+        }
     }
 
     override fun onCreateView(
@@ -34,6 +43,11 @@ class CharactersFragment : Fragment() {
         characterViewModel.characters.observe(viewLifecycleOwner, Observer<MutableList<Character>>{
             characterList ->
                 val adapter = CharactersListAdapter(characterList)
+
+                adapter.onItemClick = {
+                    characterSelectListener.onCharacterSelected(it)
+                }
+
                 binding.charactersList.layoutManager = LinearLayoutManager(requireActivity())
                 binding.charactersList.adapter = adapter
         })
