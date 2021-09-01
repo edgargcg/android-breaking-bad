@@ -21,7 +21,9 @@ class PhraseViewModel : ViewModel() {
         }
     }
 
-
+    suspend fun load(){
+        _phrase.postValue(fetch())
+    }
 
     private suspend fun fetch() : Phrase{
         return withContext(Dispatchers.IO){
@@ -30,4 +32,5 @@ class PhraseViewModel : ViewModel() {
             phrase[0]
         }
     }
+
 }
