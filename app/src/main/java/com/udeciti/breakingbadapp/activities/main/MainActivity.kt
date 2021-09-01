@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
             SettingsFragment()
         )
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle, fragments)
+        val x = R.string.hello_blank_fragment
 
         viewPager.adapter = viewPagerAdapter
         TabLayoutMediator(tabLayout, viewPager){

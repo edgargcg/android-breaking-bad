@@ -1,7 +1,5 @@
 package com.udeciti.breakingbadapp.models
 
-import com.squareup.moshi.Json
-
 class Character(
     val char_id: Int,
     val name: String,
